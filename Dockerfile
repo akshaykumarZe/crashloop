@@ -1,17 +1,20 @@
-# Use a valid base image
+# Use an official Node.js base image
 FROM node:18
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Try to copy a file that doesn't exist
-COPY package.json .  # This file doesn't exist in the context
+# Copy dependency files
+COPY package.json package-lock.json ./
 
-# Install dependencies (won't reach here)
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the app
+# Copy the rest of the application code
 COPY . .
 
-# Start the app
+# Expose the port your app runs on (e.g., 3000)
+EXPOSE 3000
+
+# Start the application
 CMD ["node", "index.js"]
