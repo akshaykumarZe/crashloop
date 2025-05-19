@@ -1,17 +1,17 @@
-# Use an official Node.js runtime as a parent image
+# Use a valid base image
 FROM node:18
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+# Try to copy a file that doesn't exist
+COPY package.json .  # This file doesn't exist in the context
 
-# Install dependencies (although we don’t have any)
+# Install dependencies (won't reach here)
 RUN npm install
 
-# Copy the rest of the application files
+# Copy the rest of the app
 COPY . .
 
-# Command to start the application
-CMD ["node", "server.js"]
+# Start the app
+CMD ["node", "index.js"]
